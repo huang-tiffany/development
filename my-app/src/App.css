@@ -1,38 +1,364 @@
-.App {
-  text-align: center;
+* {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#logo {
+  position: fixed;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+main,
+nav {
+  padding: 2.5em;
+  width: 100vw;
+  height: 100dvh;
+}
+
+nav {
+  height: 5.5em;
+  z-index: 1;
+}
+
+.container {
+  width: calc(100vw - 6.75em);
+  height: calc(100dvh - 6.75em);
+  top: 4.25em;
+  left: 4.25em;
+  border-radius: 1em 0 0 0;
+  padding: 3em;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.25);
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
+  column-gap: 1.5em;
+  row-gap: 3em;
+  flex-wrap: wrap;
+  overflow: scroll;
+  z-index: 0;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
+@keyframes logo {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
+}
+
+p2 {
+  font-family: "Yarndings 20", system-ui;
+  font-weight: 400;
+  width: 1em;
+  height: 1em;
+  display: block;
+  text-align: center;
+  font-style: normal;
+  animation: logo 15s infinite linear;
+}
+
+p1 {
+  font-family: "Jacquarda Bastarda 9", serif;
+  font-weight: 400;
+  font-size: 38.25px;
+  font-style: normal;
+}
+
+h1 p {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1em;
+  position: fixed;
+}
+
+#logo h1 p:first-of-type {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  margin-top: 1.25em;
+}
+
+h1 p:last-of-type {
+  margin-left: 1.25em;
+}
+
+.logo-stroke {
+  border-top: 1px black solid;
+  border-left: 1px black solid;
+  width: 1.5em;
+  height: 1.5em;
+  top: 3em;
+  left: 3em;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.card-image {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  aspect-ratio: 3 / 2;
+}
+
+.card-image::before {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  content: "";
+  z-index: 1;
+  transition: 0.5s ease;
+}
+
+.card-image:hover::before {
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: 0.5s ease;
+}
+
+.card-data {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+.card-image:hover > .action-buttons,
+.card-image:hover > .link {
+  margin-top: 0.75em;
+  transition: 0.5s ease;
+  opacity: 1;
+  border-radius: 100%;
+}
+
+.action-buttons,
+.link {
+  margin-top: -1.5em;
+  transition: 0.5s ease;
+  opacity: 0;
+}
+
+.card {
+  width: calc((100% - 4.5em) / 4);
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  border-radius: 0.5em;
+  overflow: hidden;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0.25em;
+  margin-top: 1em;
+}
+
+.card p {
+  font-size: 14px;
+  opacity: 0.75;
+  margin-bottom: 12px;
+}
+
+button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  outline: inherit;
+  width: 1.5em;
+  cursor: pointer;
+  height: 1.5em;
+  position: relative;
+  z-index: 1;
+}
+
+.link {
+  margin-left: 0.75em;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link img {
+  width: 1.5em;
+  height: 1.5em;
+  position: relative;
+}
+
+.action-buttons {
+  margin-right: 0.75em;
+  display: flex;
+  column-gap: 0.25em;
+  z-index: 1;
+}
+
+.favorite {
+  background-image: url("/public/favorite-button.svg");
+  transition: ease 0.5s;
+}
+
+.favorite:hover,
+.card.favorited .favorite {
+  background-image: url("/public/favorite-button-filled.svg");
+  transition: ease 0.25s;
+}
+
+.save {
+  background-image: url("/public/save-button.svg");
+  transition: ease 0.5s;
+}
+
+.save:hover {
+  background-image: url("/public/save-button-filled.svg");
+  transition: ease 0.25s;
+}
+
+.user-lists {
+  position: fixed;
+  right: 2.5em;
+  display: flex;
+  column-gap: 1em;
+  height: 3em;
+  align-items: center;
+  justify-content: center;
+  width: 5em;
+}
+
+.user-lists button {
+  width: fit-content;
+  pointer-events: all;
+  z-index: 5;
+}
+
+.user-lists button img {
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+.nav-filter {
+  position: fixed;
+  bottom: 2.5em;
+  display: flex;
+}
+
+.list-menu {
+  width: 33vw;
+  height: 100dvh;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  right: -33vw;
+  z-index: 5;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s ease;
+}
+
+.menu h1 p {
+  margin-top: 1.25em;
+  position: relative;
+  margin-bottom: calc(0.75em - 1px);
+}
+
+.menu hr {
+  border: none;
+  border-top: 1px solid black;
+}
+
+.menu.open {
+  right: 0;
+  transition: 0.5s ease;
+}
+
+.user-lists.open {
+  right: calc(33vw);
+  transition: 0.5s ease;
+  overflow: hidden;
+}
+
+.user-lists.open::before {
+  content: "";
+  height: 100%;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  background-color: black;
+  transition: 0.5s ease;
+}
+
+.user-lists::before {
+  content: "";
+  width: 0;
+  left: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  transition: 0.5s ease;
+  border-radius: 4px 0 0 4px;
+}
+
+nav button {
+  background-repeat: no-repeat;
+}
+
+.nav-favorite {
+  background-image: url("/public/nav-favorite.svg");
+  transition: 0.5s ease;
+}
+
+.nav-save {
+  background-image: url("/public/nav-save.svg");
+  transition: 0.5s ease;
+}
+
+.open .nav-favorite {
+  background-image: url("/public/nav-favorite-inverted.svg");
+  transition: 0.5s ease;
+}
+
+.open .nav-save {
+  background-image: url("/public/nav-save-inverted.svg");
+  transition: 0.5s ease;
+}
+
+.open .nav-favorite.open {
+  background-image: url("/public/nav-favorite-filled.svg");
+  transition: 0.5s ease;
+}
+
+.open .nav-save.open {
+  background-image: url("/public/nav-save-filled.svg");
+  transition: 0.5s ease;
+}
+
+.menu .card {
+  width: 100%;
+}
+
+.favorites-container {
+  padding: 3em;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 3em;
+  height: calc(100dvh - 6.75em);
+  overflow: scroll;
 }

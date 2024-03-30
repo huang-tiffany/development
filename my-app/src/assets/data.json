@@ -1,0 +1,134 @@
+[
+  {
+    "title": "Swiss Institute",
+    "location": "East Village, NYC",
+    "price": "Free",
+    "area": "Lower Manhattan",
+    "price-range": "Free",
+    "genres": ["Contemporary Art"],
+    "link": "https://www.swissinstitute.net/",
+    "image": "https://www.selldorf.com/wp-content/uploads/2018/09/2018-07-10_Swiss-Institute_Selldorf-Architects_Nicholas-Venezia_01-WEB.jpg",
+    "id": "swissInstitute"
+  },
+  {
+    "title": "Whitney Museum of American Art",
+    "location": "Meatpacking District, NYC",
+    "price": "$30",
+    "area": "Lower Manhattan",
+    "price-range": "$20-$30",
+    "genres": ["Contemporary Art"],
+    "link": "https://whitney.org/",
+    "image": "https://cdn.archilovers.com/projects/b_730_ccb92b7a-3187-4eeb-a4c5-4d3eded301a0.jpg",
+    "id": "whitneyMuseum"
+  },
+  {
+    "title": "The Museum of Modern Art",
+    "location": "Midtown, NYC",
+    "price": "$28",
+    "area": "Middle Manhattan",
+    "price-range": "$20-$30",
+    "genres": ["Contemporary Art"],
+    "link": "https://www.moma.org/",
+    "image": "https://media.architecturaldigest.com/photos/5d9f837526455c000815e398/4:3/w_2719,h_2039,c_limit/01_MoMA_Photography%20by%20Brett%20Beyer.jpg",
+    "id": "moma"
+  },
+  {
+    "title": "MoMA PS1",
+    "location": "Long Island City, Queens",
+    "price": "$10",
+    "area": "Queens",
+    "price-range": "$10-$20",
+    "genres": ["Contemporary Art"],
+    "link": "https://www.momaps1.org/",
+    "image": "https://media.cntraveler.com/photos/5a7741cf0cf6371633d1ec42/16:9/w_2560,c_limit/MOMA-PS1__2018_0E9A1837-Edit.jpg",
+    "id": "momaPs1"
+  },
+  {
+    "title": "The Noguchi Museum",
+    "location": "Astoria, Queens",
+    "price": "$16",
+    "area": "Queens",
+    "price-range": "$10-$20",
+    "genres": ["Contemporary Art"],
+    "link": "https://www.noguchi.org/",
+    "image": "https://media.cntraveler.com/photos/5d81364265eba500080bed53/16:9/w_2560%2Cc_limit/00-2019-4-The-Noguchi-Museum-New-York-Area-1--photo-Nicholas-Knight.jpg",
+    "id": "noguchiMuseum"
+  },
+  {
+    "title": "Cooper Hewitt",
+    "location": "Upper East Side, NYC",
+    "price": "$22",
+    "area": "Upper Manhattan",
+    "price-range": "$20-$30",
+    "genres": ["Technology", "Design"],
+    "link": "https://www.cooperhewitt.org/",
+    "image": "https://www.nyc-arts.org/wp-content/uploads/2011/06/ch-front1.jpg",
+    "id": "cooperHewitt"
+  },
+  {
+    "title": "The Metropolitan Museum of Art",
+    "location": "Upper East Side, NYC",
+    "price": "$30",
+    "area": "Upper Manhattan",
+    "price-range": "$20-$30",
+    "genres": ["Contemporary Art", "Historic Art"],
+    "link": "https://www.metmuseum.org/",
+    "image": "https://giorgifoundation.org/wp-content/uploads/2020/08/met-hero.jpg",
+    "id": "met"
+  },
+  {
+    "title": "The Met Cloisters",
+    "location": "Washington Heights, NYC",
+    "price": "$30",
+    "area": "Upper Manhattan",
+    "price-range": "$20-$30",
+    "genres": ["Historic Art"],
+    "link": "https://www.metmuseum.org/",
+    "image": "https://cdn.sanity.io/images/cctd4ker/production/13a51854d783d89f19d359680c27ade2331b3272-3840x2160.jpg?w=3840&q=75&fit=clip&auto=format",
+    "id": "metCloisters"
+  },
+  {
+    "title": "Solomon R. Guggenheim Museum",
+    "location": "Upper East Side, NYC",
+    "price": "$30",
+    "area": "Upper Manhattan",
+    "price-range": "$20-$30",
+    "genres": ["Contemporary Art"],
+    "link": "https://www.guggenheim.org/",
+    "image": "https://www.guggenheim.org/wp-content/uploads/2023/12/architecture-srgm-exterior-ph-033.jpg",
+    "id": "guggenheimMuseum"
+  },
+  {
+    "title": "Museum of Arts and Design",
+    "location": "Midtown, NYC",
+    "price": "$20",
+    "area": "Middle Manhattan",
+    "price-range": "$10-$20",
+    "genres": ["Contemporary Art", "Design"],
+    "link": "https://madmuseum.org/",
+    "image": "https://madmuseum.org/sites/default/files/styles/page_hero/public/2020/08/0K7A9820.jpg?itok=tmdwyqj_",
+    "id": "mad"
+  },
+  {
+    "title": "Poster House",
+    "location": "Chelsea, NYC",
+    "price": "$12",
+    "area": "Lower Manhattan",
+    "price-range": "$10-$20",
+    "genres": ["Design"],
+    "link": "https://posterhouse.org/",
+    "image": "https://posterhouse.org/wp-content/uploads/2022/02/home-hero-1.jpg",
+    "id": "posterHouse"
+  },
+  {
+    "title": "The Morgan Library & Museum",
+    "location": "Murray Hill, NYC",
+    "price": "$25",
+    "area": "Lower Manhattan",
+    "price-range": "$20-$30",
+    "genres": ["Historic Art"],
+    "link": "https://www.themorgan.org/",
+    "image": "https://media.cntraveler.com/photos/5a7741d04332805bf105f668/16:9/w_2560,c_limit/Morgan-Library-and-Museum__2018_9.-East-Room-2.jpg",
+    "id": "morganLibrary"
+  }
+]
