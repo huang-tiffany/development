@@ -3,8 +3,6 @@ export default function Card(props) {
     title,
     location,
     price,
-    favorited,
-    saved,
     link,
     image,
     addToFavorites,
@@ -16,7 +14,7 @@ export default function Card(props) {
       <div className="card-image">
         <img src={image} alt={title}></img>
         <button className="link">
-          <a href={link} target="_blank">
+          <a href={link} target="_blank" rel="noreferrer">
             <img src="link.svg" alt=""></img>
           </a>
         </button>
@@ -39,7 +37,7 @@ export default function Card(props) {
       <div className="card-data">
         <h2>{title}</h2>
         <p className="location-price">
-          {location} · {price + " admission"}
+          {location} · {(price > 0 ? "$" + price : "Free ") + " admission"}
         </p>
       </div>
     </div>

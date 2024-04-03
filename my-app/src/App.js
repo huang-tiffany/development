@@ -10,6 +10,13 @@ function App() {
   const [saved, setSaved] = useState(new Map());
   const [savedMuseums, setSavedMuseums] = useState([]);
 
+  const [filters, setFilters] = useState([]);
+  const [locFilter, setLocFilter] = useState("");
+  const [genreFilter, setGenreFilter] = useState("");
+  const [displayData, setDisplayData] = useState(data);
+
+  const [sort, setSort] = useState("");
+
   const openListMenu = (button) => {
     if (button === "nav-filter") {
       document.querySelector(".filter-menu").classList.add("open");
@@ -22,7 +29,6 @@ function App() {
         document.querySelector(".favorites-list").classList.add("open");
         document.querySelector(".saved-list").classList.remove("open");
       } else {
-        console.log("hi");
         document.querySelector(".favorites-list").classList.remove("open");
         document.querySelector(".saved-list").classList.add("open");
       }
@@ -57,12 +63,10 @@ function App() {
   };
 
   const addToFavorites = (museum) => {
-    console.log(museum[5]);
     if (favorites.has(museum[5])) {
       favorites.delete(museum[5]);
       setFavorites(favorites);
       const museumCards = document.getElementsByClassName(museum[5]);
-      console.log(museum[5]);
       for (let i = 0; i < museumCards.length; i++) {
         museumCards[i].classList.remove("favorited");
       }
@@ -79,12 +83,10 @@ function App() {
   };
 
   const addToSaved = (museum) => {
-    console.log(museum[5]);
     if (saved.has(museum[5])) {
       saved.delete(museum[5]);
       setSaved(saved);
       const museumCards = document.getElementsByClassName(museum[5]);
-      console.log(museum[5]);
       for (let i = 0; i < museumCards.length; i++) {
         museumCards[i].classList.remove("saved");
       }
@@ -100,11 +102,87 @@ function App() {
     setSavedMuseums(arr);
   };
 
+  useEffect(() => {
+    addToFilters(locFilter);
+  }, [locFilter]);
+
+  useEffect(() => {
+    addToFilters(genreFilter);
+  }, [genreFilter]);
+
+  const addToFilters = (entry) => {
+    const filterArr = [];
+    filterArr.push(locFilter);
+    filterArr.push(genreFilter);
+
+    for (let j = 0; j < filters.length; j++) {
+      const elt = document.getElementById(filters[j]);
+      if (elt) {
+        elt.classList.remove("selected");
+      }
+    }
+
+    // const for one location filter, const for one genre filter. check separately if item has both filters if they're both used
+    setFilters(filterArr);
+    for (let j = 0; j < filterArr.length; j++) {
+      const elt = document.getElementById(filterArr[j]);
+      if (elt) {
+        elt.classList.add("selected");
+      }
+    }
+
+    const arr = [];
+    data.forEach((museum) => {
+      if (genreFilter.length > 0 && locFilter.length > 0) {
+        if (
+          !arr.includes(museum) &&
+          museum.genre === genreFilter &&
+          museum.area === locFilter
+        ) {
+          arr.push(museum);
+        }
+      } else if (genreFilter.length > 0) {
+        if (!arr.includes(museum) && museum.genre === genreFilter) {
+          arr.push(museum);
+        }
+      } else if (locFilter.length > 0) {
+        if (!arr.includes(museum) && museum.area === locFilter) {
+          arr.push(museum);
+        }
+      } else {
+        arr.push(museum);
+      }
+    });
+    setDisplayData(arr);
+  };
+
+  const sortData = (toSort) => {
+    if (sort === "low-to-high") {
+      return toSort.sort((a, b) => a["price"] - b["price"]);
+    } else if (sort === "high-to-low") {
+      return toSort.sort((a, b) => (a["price"] - b["price"]) * -1);
+    } else {
+      return toSort.sort((a, b) => a.title.localeCompare(b.title));
+    }
+  };
+
+  useEffect(() => {
+    const sortButtons = document.getElementsByClassName("sort-button");
+    for (let i = 0; i < sortButtons.length; i++) {
+      sortButtons[i].classList.remove("selected");
+    }
+
+    const elt = document.getElementById(sort);
+    if (elt) {
+      elt.classList.add("selected");
+    }
+  }, [sort]);
+
   const clearFavorites = () => {
     favorites.forEach((key) => {
       const museumCards = document.getElementsByClassName(key[5]);
       for (let i = 0; i < museumCards.length; i++) {
-        museumCards[i].classList.remove("favorited");
+        museumCards[i].area.remove("favorited");
       }
     });
 
@@ -124,7 +202,11 @@ function App() {
     setSavedMuseums([]);
   };
 
-  const clearFilters = () => {};
+  const clearFilters = () => {
+    setSort("");
+    setGenreFilter("");
+    setLocFilter("");
+  };
 
   useEffect(() => {
     favorites.forEach((key) => {
@@ -135,7 +217,6 @@ function App() {
     });
 
     saved.forEach((key) => {
-      console.log(key);
       const museumCards = document.getElementsByClassName(key[5]);
       for (let i = 0; i < museumCards.length; i++) {
         museumCards[i].classList.add("saved");
@@ -199,8 +280,6 @@ function App() {
                     title={museum[0]}
                     location={museum[1]}
                     price={museum[2]}
-                    favorited="true"
-                    saved="true"
                     link={museum[3]}
                     image={museum[4]}
                     addToFavorites={addToFavorites}
@@ -247,8 +326,6 @@ function App() {
                     title={museum[0]}
                     location={museum[1]}
                     price={museum[2]}
-                    favorited="true"
-                    saved="true"
                     link={museum[3]}
                     image={museum[4]}
                     addToFavorites={addToFavorites}
@@ -282,7 +359,132 @@ function App() {
         </div>
 
         <div className="filter-menu menu">
-          <div className="filters-container"></div>
+          <div className="filters-container">
+            <div className="filtering-section">
+              <h2>SORT BY</h2>
+              <div className="filtering-section-container">
+                <div className="filter-option">
+                  <p>Price (adult ticket)</p>
+                  <div className="button-container">
+                    <button
+                      id="low-to-high"
+                      className="sort-button"
+                      onClick={() =>
+                        sort !== "low-to-high"
+                          ? setSort("low-to-high")
+                          : setSort("")
+                      }
+                    >
+                      Low to High
+                    </button>
+                    <button
+                      id="high-to-low"
+                      className="sort-button"
+                      onClick={() =>
+                        sort !== "high-to-low"
+                          ? setSort("high-to-low")
+                          : setSort("")
+                      }
+                    >
+                      High to Low
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="filtering-section">
+              <h2>FILTER BY</h2>
+              <div className="filtering-section-container">
+                <div className="filter-option">
+                  <p>Location</p>
+                  <div className="button-container">
+                    <button
+                      classList="filter-button"
+                      id="upper-manhattan"
+                      onClick={() => {
+                        locFilter === "upper-manhattan"
+                          ? setLocFilter("")
+                          : setLocFilter("upper-manhattan");
+                      }}
+                    >
+                      Upper Manhattan
+                    </button>
+                    <button
+                      classList="filter-button"
+                      id="middle-manhattan"
+                      onClick={() => {
+                        locFilter === "middle-manhattan"
+                          ? setLocFilter("")
+                          : setLocFilter("middle-manhattan");
+                      }}
+                    >
+                      Middle Manhattan
+                    </button>
+                    <button
+                      classList="filter-button"
+                      id="lower-manhattan"
+                      onClick={() => {
+                        locFilter === "lower-manhattan"
+                          ? setLocFilter("")
+                          : setLocFilter("lower-manhattan");
+                      }}
+                    >
+                      Lower Manhattan
+                    </button>
+                    <button
+                      classList="filter-button"
+                      id="queens"
+                      onClick={() => {
+                        locFilter === "queens"
+                          ? setLocFilter("")
+                          : setLocFilter("queens");
+                      }}
+                    >
+                      Queens
+                    </button>
+                  </div>
+                </div>
+                <div className="filter-option">
+                  <p>Genres</p>
+                  <div className="button-container">
+                    <button
+                      classList="filter-button"
+                      id="contemporary-art"
+                      onClick={() => {
+                        genreFilter === "contemporary-art"
+                          ? setGenreFilter("")
+                          : setGenreFilter("contemporary-art");
+                      }}
+                    >
+                      Contemporary Art
+                    </button>
+                    <button
+                      classList="filter-button"
+                      id="design"
+                      onClick={() => {
+                        genreFilter === "design"
+                          ? setGenreFilter("")
+                          : setGenreFilter("design");
+                      }}
+                    >
+                      Design
+                    </button>
+                    <button
+                      classList="filter-button"
+                      id="historic-art"
+                      onClick={() => {
+                        genreFilter === "historic-art"
+                          ? setGenreFilter("")
+                          : setGenreFilter("historic-art");
+                      }}
+                    >
+                      Historic Art
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="menu-footer">
             <h1>
               <p>
@@ -308,15 +510,13 @@ function App() {
       </nav>
       <main>
         <div class="container">
-          {data.map((museum) => {
+          {sortData(displayData).map((museum) => {
             return (
               <Card
                 key={museum.id}
                 title={museum.title}
                 location={museum.location}
                 price={museum.price}
-                favorited="true"
-                saved="true"
                 link={museum.link}
                 image={museum.image}
                 addToFavorites={addToFavorites}
