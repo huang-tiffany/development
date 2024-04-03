@@ -8,6 +8,7 @@ export default function Card(props) {
     link,
     image,
     addToFavorites,
+    addToSaved,
     id,
   } = props;
   return (
@@ -27,7 +28,12 @@ export default function Card(props) {
               addToFavorites([title, location, price, link, image, id])
             }
           ></button>
-          <button className="save"></button>
+          <button
+            className="save"
+            onClick={() =>
+              addToSaved([title, location, price, link, image, id])
+            }
+          ></button>
         </div>
       </div>
       <div className="card-data">

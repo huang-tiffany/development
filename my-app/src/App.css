@@ -33,7 +33,7 @@ nav {
 .container {
   width: calc(100vw - 6.75em);
   height: calc(100dvh - 6.75em);
-  top: 4.25em;
+  top: -1.125em;
   left: 4.25em;
   border-radius: 1em 0 0 0;
   padding: 3em;
@@ -225,7 +225,8 @@ button {
   transition: ease 0.5s;
 }
 
-.save:hover {
+.save:hover,
+.card.saved .save {
   background-image: url("/public/save-button-filled.svg");
   transition: ease 0.25s;
 }
@@ -239,24 +240,33 @@ button {
   align-items: center;
   justify-content: center;
   width: 5em;
+  transition: 0.5s ease;
 }
 
-.user-lists button {
+.filters {
+  position: fixed;
+  bottom: 2.5em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  left: 2.25em;
+  transition: 0.5s ease;
+}
+
+.user-lists button,
+.filters button {
   width: fit-content;
   pointer-events: all;
   z-index: 5;
 }
 
-.user-lists button img {
+.user-lists button img,
+.filters button img {
   width: 100%;
   height: 100%;
   visibility: hidden;
-}
-
-.nav-filter {
-  position: fixed;
-  bottom: 2.5em;
-  display: flex;
 }
 
 .list-menu {
@@ -273,10 +283,28 @@ button {
   transition: 0.5s ease;
 }
 
+.filter-menu {
+  width: 100vw;
+  height: calc(50dvh - 2.5em);
+  background-color: white;
+  position: fixed;
+  bottom: calc(-50dvh + 2.5em);
+  left: 0;
+  z-index: 5;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s ease;
+}
+
 .menu h1 p {
   margin-top: 1.25em;
   position: relative;
   margin-bottom: calc(0.75em - 1px);
+}
+
+.menu-footer h1 p {
+  margin: 0;
 }
 
 .menu hr {
@@ -284,36 +312,56 @@ button {
   border-top: 1px solid black;
 }
 
-.menu.open {
+.list-menu.open {
   right: 0;
   transition: 0.5s ease;
 }
 
+.filter-menu.open {
+  bottom: 0;
+  transition: 0.5s ease;
+}
+
 .user-lists.open {
-  right: calc(33vw);
+  right: 33vw;
   transition: 0.5s ease;
   overflow: hidden;
 }
 
+.filters.open {
+  bottom: calc(50dvh - 2.5em);
+}
+
 .user-lists.open::before {
-  content: "";
-  height: 100%;
   left: 0;
-  width: 100%;
-  position: absolute;
-  background-color: black;
   transition: 0.5s ease;
 }
 
 .user-lists::before {
   content: "";
-  width: 0;
-  left: 100%;
+  width: 100%;
+  left: 200%;
   height: 100%;
   position: absolute;
   background-color: black;
   transition: 0.5s ease;
   border-radius: 4px 0 0 4px;
+}
+
+.filters.open::before {
+  top: 0;
+  transition: 0.5s ease;
+}
+
+.filters::before {
+  content: "";
+  top: 200%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  transition: 0.5s ease;
+  border-radius: 4px 4px 0 0;
 }
 
 nav button {
@@ -327,6 +375,11 @@ nav button {
 
 .nav-save {
   background-image: url("/public/nav-save.svg");
+  transition: 0.5s ease;
+}
+
+.nav-filter {
+  background-image: url("/public/nav-filter.svg");
   transition: 0.5s ease;
 }
 
@@ -345,6 +398,11 @@ nav button {
   transition: 0.5s ease;
 }
 
+.open .nav-filter.open {
+  background-image: url("/public/nav-filter-filled.svg");
+  transition: 0.5s ease;
+}
+
 .open .nav-save.open {
   background-image: url("/public/nav-save-filled.svg");
   transition: 0.5s ease;
@@ -354,11 +412,71 @@ nav button {
   width: 100%;
 }
 
-.favorites-container {
+.favorites-container,
+.saved-container,
+.filters-container {
   padding: 3em;
   display: flex;
   flex-wrap: wrap;
   row-gap: 3em;
-  height: calc(100dvh - 6.75em);
+  height: calc(100dvh - 11.75em);
   overflow: scroll;
+}
+
+.favorites-list,
+.saved-list {
+  display: none;
+}
+
+.favorites-list.open,
+.saved-list.open {
+  display: initial;
+}
+
+.filters-container {
+  column-gap: 3em;
+  height: calc(50dvh - 7.5em);
+  overflow: scroll;
+}
+
+.menu-footer {
+  width: 100%;
+  height: 5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.25);
+}
+
+.filter-menu .menu-footer {
+  padding: 2.5em;
+}
+
+.action-container {
+  width: fit-content;
+  display: flex;
+  column-gap: 1.5em;
+  align-items: center;
+}
+
+.action-container .primary-button {
+  width: fit-content;
+  background-color: black;
+  color: white;
+  padding: 1em 0.75em;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.action-container button.secondary-button {
+  color: rgba(0, 0, 0, 0.7);
+  width: fit-content;
+  text-decoration: none;
+}
+
+.action-container button.secondary-button:hover {
+  color: rgba(0, 0, 0, 1);
 }
