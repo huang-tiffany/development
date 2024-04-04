@@ -534,7 +534,7 @@ function App() {
                 className="primary-button"
                 onClick={() => closeListMenu("nav-filter")}
               >
-                Close
+                See results ({displayData.length})
               </button>
             </div>
           </div>
