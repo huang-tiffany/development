@@ -8,9 +8,10 @@ export default function Card(props) {
     addToFavorites,
     addToSaved,
     id,
+    gridView,
   } = props;
-  return (
-    <div className={"card " + id}>
+  return gridView ? (
+    <div className={"card grid-view " + id}>
       <div className="card-image">
         <img src={image} alt={title}></img>
         <button className="link">
@@ -39,6 +40,28 @@ export default function Card(props) {
         <p className="location-price">
           {location} · {(price > 0 ? "$" + price : "Free ") + " admission"}
         </p>
+      </div>
+    </div>
+  ) : (
+    <div className={"card list-view " + id}>
+      <div className="card-data">
+        <h2>{title}</h2>
+        <p className="location-price">
+          {location} · {(price > 0 ? "$" + price : "Free ") + " admission"}
+        </p>
+      </div>
+
+      <div className="action-buttons">
+        <button
+          className="favorite"
+          onClick={() =>
+            addToFavorites([title, location, price, link, image, id])
+          }
+        ></button>
+        <button
+          className="save"
+          onClick={() => addToSaved([title, location, price, link, image, id])}
+        ></button>
       </div>
     </div>
   );

@@ -15,25 +15,98 @@ function App() {
   const [genreFilter, setGenreFilter] = useState("");
   const [displayData, setDisplayData] = useState(data);
 
+  const [savedGridView, setSavedGridView] = useState(true);
+  const [favoritesGridView, setFavoritesGridView] = useState(true);
+
+  useEffect(() => {
+    if (savedGridView) {
+      document
+        .querySelector(".saved-list button.grid-view")
+        .classList.add("selected");
+      document
+        .querySelector(".saved-list button.list-view")
+        .classList.remove("selected");
+    } else {
+      document
+        .querySelector(".saved-list button.list-view")
+        .classList.add("selected");
+      document
+        .querySelector(".saved-list button.grid-view")
+        .classList.remove("selected");
+    }
+  }, [savedGridView]);
+
+  useEffect(() => {
+    if (favoritesGridView) {
+      document
+        .querySelector(".favorites-list button.grid-view")
+        .classList.add("selected");
+      document
+        .querySelector(".favorites-list button.list-view")
+        .classList.remove("selected");
+    } else {
+      document
+        .querySelector(".favorites-list button.list-view")
+        .classList.add("selected");
+      document
+        .querySelector(".favorites-list button.grid-view")
+        .classList.remove("selected");
+    }
+  }, [favoritesGridView]);
+
+  const filterLocOptions = [
+    ["upper-manhattan", "Upper Manhattan"],
+    ["middle-manhattan", "Middle Manhattan"],
+    ["lower-manhattan", "Lower Manhattan"],
+    ["queens", "Queens"],
+  ];
+  const filterGenreOptions = [
+    ["contemporary-art", "Contemporary Art"],
+    ["design", "Design"],
+    ["historic-art", "Historic Art"],
+  ];
+  const sortOptions = [
+    ["low-to-high", "Low to High"],
+    ["high-to-low", "High to Low"],
+  ];
+
   const [sort, setSort] = useState("");
 
   const openListMenu = (button) => {
     if (button === "nav-filter") {
-      document.querySelector(".filter-menu").classList.add("open");
-      document.querySelector(".filters").classList.add("open");
+      if (document.querySelector(".filter-menu").classList.contains("open")) {
+        closeListMenu(button);
+      } else {
+        document.querySelector(".filter-menu").classList.add("open");
+        document.querySelector(".filters").classList.add("open");
+      }
 
       document.querySelector(".list-menu").classList.remove("open");
+      document.querySelector(".favorites-list").classList.remove("open");
+      document.querySelector(".saved-list").classList.remove("open");
       document.querySelector(".user-lists").classList.remove("open");
     } else {
       if (button === "nav-favorite") {
-        document.querySelector(".favorites-list").classList.add("open");
-        document.querySelector(".saved-list").classList.remove("open");
+        if (
+          document.querySelector(".favorites-list").classList.contains("open")
+        ) {
+          closeListMenu(button);
+        } else {
+          document.querySelector(".favorites-list").classList.add("open");
+          document.querySelector(".saved-list").classList.remove("open");
+          document.querySelector(".list-menu").classList.add("open");
+          document.querySelector(".user-lists").classList.add("open");
+        }
       } else {
-        document.querySelector(".favorites-list").classList.remove("open");
-        document.querySelector(".saved-list").classList.add("open");
+        if (document.querySelector(".saved-list").classList.contains("open")) {
+          closeListMenu(button);
+        } else {
+          document.querySelector(".favorites-list").classList.remove("open");
+          document.querySelector(".saved-list").classList.add("open");
+          document.querySelector(".list-menu").classList.add("open");
+          document.querySelector(".user-lists").classList.add("open");
+        }
       }
-      document.querySelector(".list-menu").classList.add("open");
-      document.querySelector(".user-lists").classList.add("open");
 
       document.querySelector(".filter-menu").classList.remove("open");
       document.querySelector(".filters").classList.remove("open");
@@ -52,6 +125,12 @@ function App() {
       document.querySelector(".filter-menu").classList.remove("open");
       document.querySelector(".filters").classList.remove("open");
     } else {
+      if (button === "nav-favorite") {
+        document.querySelector(".favorites-list").classList.remove("open");
+      } else {
+        document.querySelector(".saved-list").classList.remove("open");
+      }
+
       document.querySelector(".list-menu").classList.remove("open");
       document.querySelector(".user-lists").classList.remove("open");
     }
@@ -103,12 +182,8 @@ function App() {
   };
 
   useEffect(() => {
-    addToFilters(locFilter);
-  }, [locFilter]);
-
-  useEffect(() => {
-    addToFilters(genreFilter);
-  }, [genreFilter]);
+    addToFilters();
+  }, [locFilter, genreFilter]);
 
   const addToFilters = (entry) => {
     const filterArr = [];
@@ -182,7 +257,7 @@ function App() {
     favorites.forEach((key) => {
       const museumCards = document.getElementsByClassName(key[5]);
       for (let i = 0; i < museumCards.length; i++) {
-        museumCards[i].area.remove("favorited");
+        museumCards[i].classList.remove("favorited");
       }
     });
 
@@ -222,7 +297,7 @@ function App() {
         museumCards[i].classList.add("saved");
       }
     });
-  }, [favorites, saved]);
+  }, [favorites, saved, savedGridView, favoritesGridView]);
 
   return (
     <>
@@ -285,14 +360,21 @@ function App() {
                     addToFavorites={addToFavorites}
                     addToSaved={addToSaved}
                     id={museum[5]}
+                    gridView={favoritesGridView}
                   ></Card>
                 );
               })}
             </div>
             <div className="menu-footer">
               <div className="button-container">
-                <button className="grid-view"></button>
-                <button className="list-view"></button>
+                <button
+                  className="grid-view"
+                  onClick={() => setFavoritesGridView(true)}
+                ></button>
+                <button
+                  className="list-view"
+                  onClick={() => setFavoritesGridView(false)}
+                ></button>
               </div>
               <div className="action-container">
                 <button
@@ -310,7 +392,6 @@ function App() {
               </div>
             </div>
           </div>
-
           <div className="saved-list">
             <h1>
               <p>
@@ -331,14 +412,21 @@ function App() {
                     addToFavorites={addToFavorites}
                     addToSaved={addToSaved}
                     id={museum[5]}
+                    gridView={savedGridView}
                   ></Card>
                 );
               })}
             </div>
             <div className="menu-footer">
               <div className="button-container">
-                <button className="grid-view"></button>
-                <button className="list-view"></button>
+                <button
+                  className="grid-view"
+                  onClick={() => setSavedGridView(true)}
+                ></button>
+                <button
+                  className="list-view"
+                  onClick={() => setSavedGridView(false)}
+                ></button>
               </div>
               <div className="action-container">
                 <button
@@ -366,28 +454,19 @@ function App() {
                 <div className="filter-option">
                   <p>Price (adult ticket)</p>
                   <div className="button-container">
-                    <button
-                      id="low-to-high"
-                      className="sort-button"
-                      onClick={() =>
-                        sort !== "low-to-high"
-                          ? setSort("low-to-high")
-                          : setSort("")
-                      }
-                    >
-                      Low to High
-                    </button>
-                    <button
-                      id="high-to-low"
-                      className="sort-button"
-                      onClick={() =>
-                        sort !== "high-to-low"
-                          ? setSort("high-to-low")
-                          : setSort("")
-                      }
-                    >
-                      High to Low
-                    </button>
+                    {sortOptions.map((opt) => {
+                      return (
+                        <button
+                          id={opt[0]}
+                          className="sort-button"
+                          onClick={() =>
+                            sort !== opt[0] ? setSort(opt[0]) : setSort("")
+                          }
+                        >
+                          {opt[1]}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -398,88 +477,41 @@ function App() {
                 <div className="filter-option">
                   <p>Location</p>
                   <div className="button-container">
-                    <button
-                      classList="filter-button"
-                      id="upper-manhattan"
-                      onClick={() => {
-                        locFilter === "upper-manhattan"
-                          ? setLocFilter("")
-                          : setLocFilter("upper-manhattan");
-                      }}
-                    >
-                      Upper Manhattan
-                    </button>
-                    <button
-                      classList="filter-button"
-                      id="middle-manhattan"
-                      onClick={() => {
-                        locFilter === "middle-manhattan"
-                          ? setLocFilter("")
-                          : setLocFilter("middle-manhattan");
-                      }}
-                    >
-                      Middle Manhattan
-                    </button>
-                    <button
-                      classList="filter-button"
-                      id="lower-manhattan"
-                      onClick={() => {
-                        locFilter === "lower-manhattan"
-                          ? setLocFilter("")
-                          : setLocFilter("lower-manhattan");
-                      }}
-                    >
-                      Lower Manhattan
-                    </button>
-                    <button
-                      classList="filter-button"
-                      id="queens"
-                      onClick={() => {
-                        locFilter === "queens"
-                          ? setLocFilter("")
-                          : setLocFilter("queens");
-                      }}
-                    >
-                      Queens
-                    </button>
+                    {filterLocOptions.map((opt) => {
+                      return (
+                        <button
+                          id={opt[0]}
+                          className="filter-button"
+                          onClick={() =>
+                            locFilter === opt[0]
+                              ? setLocFilter("")
+                              : setLocFilter(opt[0])
+                          }
+                        >
+                          {opt[1]}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="filter-option">
                   <p>Genres</p>
                   <div className="button-container">
-                    <button
-                      classList="filter-button"
-                      id="contemporary-art"
-                      onClick={() => {
-                        genreFilter === "contemporary-art"
-                          ? setGenreFilter("")
-                          : setGenreFilter("contemporary-art");
-                      }}
-                    >
-                      Contemporary Art
-                    </button>
-                    <button
-                      classList="filter-button"
-                      id="design"
-                      onClick={() => {
-                        genreFilter === "design"
-                          ? setGenreFilter("")
-                          : setGenreFilter("design");
-                      }}
-                    >
-                      Design
-                    </button>
-                    <button
-                      classList="filter-button"
-                      id="historic-art"
-                      onClick={() => {
-                        genreFilter === "historic-art"
-                          ? setGenreFilter("")
-                          : setGenreFilter("historic-art");
-                      }}
-                    >
-                      Historic Art
-                    </button>
+                    {filterGenreOptions.map((opt) => {
+                      return (
+                        <button
+                          id={opt[0]}
+                          className="filter-button"
+                          onClick={() =>
+                            genreFilter === opt[0]
+                              ? setGenreFilter("")
+                              : setGenreFilter(opt[0])
+                          }
+                        >
+                          {opt[1]}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -522,6 +554,7 @@ function App() {
                 addToFavorites={addToFavorites}
                 addToSaved={addToSaved}
                 id={museum.id}
+                gridView={true}
               ></Card>
             );
           })}

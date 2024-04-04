@@ -131,20 +131,21 @@ h1 p:last-of-type {
 
 .card-data {
   display: flex;
+  width: 100%;
   flex-direction: column;
   padding: 0 12px;
 }
 
-.card-image:hover > .action-buttons,
-.card-image:hover > .link {
+.grid-view .card-image:hover > .action-buttons,
+.grid-view .card-image:hover > .link {
   margin-top: 0.75em;
   transition: 0.5s ease;
   opacity: 1;
   border-radius: 100%;
 }
 
-.action-buttons,
-.link {
+.grid-view .action-buttons,
+.grid-view .link {
   margin-top: -1.5em;
   transition: 0.5s ease;
   opacity: 0;
@@ -158,6 +159,10 @@ h1 p:last-of-type {
   border-radius: 0.5em;
   overflow: hidden;
   box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.1);
+}
+
+.card.list-view {
+  flex-direction: row;
 }
 
 .card h2 {
@@ -188,7 +193,7 @@ button {
   z-index: 1;
 }
 
-.link {
+.grid-view .link {
   margin-left: 0.75em;
   padding: 0;
   display: flex;
@@ -202,11 +207,19 @@ button {
   position: relative;
 }
 
-.action-buttons {
+.grid-view .action-buttons {
   margin-right: 0.75em;
   display: flex;
   column-gap: 0.25em;
   z-index: 1;
+}
+
+.list-view .action-buttons {
+  display: flex;
+  align-items: center;
+  padding-right: 0.75em;
+  column-gap: 0.25em;
+  flex-wrap: nowrap;
 }
 
 .favorite {
@@ -223,6 +236,11 @@ button {
 .save {
   background-image: url("/public/save-button.svg");
   transition: ease 0.5s;
+}
+
+.list-view .save {
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 100%;
 }
 
 .save:hover,
@@ -412,13 +430,18 @@ nav button {
   width: 100%;
 }
 
+.list-menu .grid-view.card:not(:last-of-type) {
+  margin-bottom: 3em;
+}
+
+.list-view.card:not(:last-of-type) {
+  margin-bottom: 1em;
+}
+
 .favorites-container,
 .saved-container,
 .filters-container {
   padding: 3em;
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 3em;
   height: calc(100dvh - 11.75em);
   overflow: scroll;
 }
@@ -433,10 +456,13 @@ nav button {
   display: initial;
 }
 
-.filters-container {
-  column-gap: 3em;
+.filter-menu .filters-container {
   height: calc(50dvh - 7.5em);
   overflow: scroll;
+  column-gap: 10em;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 2.25em;
 }
 
 .menu-footer {
@@ -528,8 +554,32 @@ h2 {
   column-gap: 5em;
 }
 
-.filters-container {
-  column-gap: 10em;
-  flex-wrap: nowrap;
-  padding: 2.25em;
+button.grid-view {
+  background-image: url("/public/grid-view.svg");
+  transition: 0.25s ease;
+  opacity: 0.5;
+  background-position: center;
+}
+
+button.list-view {
+  background-image: url("/public/list-view.svg");
+  transition: 0.25s ease;
+  opacity: 0.5;
+  background-position: center;
+  margin-left: 0.75em;
+}
+
+button.grid-view:hover {
+  transition: 0.25s ease;
+  opacity: 0.75;
+}
+
+button.list-view:hover {
+  transition: 0.25s ease;
+  opacity: 0.75;
+}
+
+button.selected {
+  opacity: 1;
+  transition: 0.25s ease;
 }
