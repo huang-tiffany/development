@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Docs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="docstyles.css" />
+  </head>
+  <body>
+    <nav>
+      <h0>DEVELOPMENT</h0>
+      <a href="https://development-puce.vercel.app/" target="_blank"
+        >Deployed Site</a
+      >
+    </nav>
+
+    <div class="section">
+      <h1><sup>00</sup> Intro</h1>
+      <div class="content">
+        <p>
+          The Development assignment required students to design and implement a
+          fully usable aggregator using React, which included features for
+          filtering and sorting elements on a page and adding them to a
+          subsection of the screen devoted to organizing "favorites" or a
+          "cart." By performing a competitive analysis at the start of the
+          assignment, designs were based off of the perceived strengths of three
+          different designs so they could take advantage of how effective
+          aggregators have been implemented in industry.
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h1><sup>01</sup> Competitive Analysis</h1>
+      <div class="content">
+        <p>
+          For my three example websites, I chose Spotify, Pinterest, and Amazon.
+          Although the three sites had a lot of features in common (like
+          user-created lists, different view specs, and searching within lists),
+          their designs differed slightly within how they balanced master lists
+          and user-created lists.
+        </p>
+        <img
+          alt="Competitive analysis grid"
+          src="/my-app/public/competitive analysis.jpg"
+        />
+        <div class="three-up">
+          <div>
+            <h2>
+              <a href="https://spotify.com/" target="_blank"
+                ><sup>01</sup> Spotify</a
+              >
+            </h2>
+            <p>
+              Given their main function of curating music for users, Spotify had
+              more advantages for filtering and saving favorites locally. By
+              revolving around user-created folders, Spotify focused the user
+              flow around favoriting and organizing songs. However, Spotify
+              lacked the ability to compile all saved songs from every playlist
+              in one place unlike the other two sites, which could be helpful
+              when users look for songs that they saved but might not remember
+              the location of.
+
+              <br /><br />
+              In terms of its design, Spotify devotes most of the screen to
+              playlists on the left and songs within a given playlist in the
+              center. By simplifying each action into an icon that can display
+              on hover for favoriting songs and using similarity to group
+              similar actions together (such as the “favorite” icon in multiple
+              locations wherever a song appears), Spotify highlights the main
+              actions it wants its users to take without being too cluttered.
+            </p>
+          </div>
+
+          <div>
+            <h2>
+              <a href="https://www.pinterest.com/" target="_blank"
+                ><sup>02</sup> Pinterest</a
+              >
+            </h2>
+            <p>
+              Like Spotify, Pinterest had both multiple user-created lists and
+              one-click saving, but it also had the option to save to an
+              unorganized master list, which made it easier to see all saves in
+              one location, and its view specs differed in the level of detail
+              displayed rather than page layout. However, Pinterest didn’t have
+              any way to filter content, which neglects potential scenarios in
+              which it would be helpful to filter by media type or topic.
+              <br /><br />
+              Pinterest’s design sits between Spotify and Amazon’s in terms of
+              complexity with both a tree layout and one-click saves. This
+              allows for Pinterest to display the most pertinent actions (saving
+              pins) while adding complexity if needed when comenting or writing
+              notes on pins. Instead of sharing screen real estate between lists
+              and items, Pinterest spotlights the items themselves, relying on
+              similarity and repetition to unify the page; this also allows
+              users to focus on the pins, with boards being secondary.
+            </p>
+          </div>
+
+          <div>
+            <h2>
+              <a href="https://www.amazon.com/" target="_blank"
+                ><sup>03</sup> Amazon</a
+              >
+            </h2>
+            <p>
+              With master lists, user-created lists, and filtering, Amazon makes
+              it easy to find saved items. Furthermore, its qualitative customer
+              ratings also add to its credibility compared to Pinterest and
+              Spotify, which use quantitative metrics like the number of likes
+              or listens instead. However, Amazon’s main weakness comes from not
+              having a master list but not one-click saves, as well as not being
+              able to save favorites locally, which impacts accessibility on the
+              go.
+              <br /><br />
+              Amazon’s design is more robust and in-depth than the other two
+              sites; buttons for saving or adding items to one’s cart sit beside
+              the info, which places the focus on the products. With grouping,
+              Amazon makes information easy to peruse, but it also creates a
+              more nuanced experience with more visible options. However, by
+              using similarity within text links versus various kinds of
+              buttons, Amazon packs content onto the page so the user can do
+              more without compromising visual clarity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h1><sup>02</sup> Competitive Analysis Reflection</h1>
+      <div class="content">
+        <p>
+          Given that having a master list, one-click save, and view specs were
+          three features that were not universal across the aggregators, yet
+          still features that seemed to be beneficial for the user experience, I
+          decided to implement these three functions as part of my website.
+          <br /><br />
+          Although other features like user-created lists and filtering within
+          lists were also helpful, given the scope of the assignment to
+          encompass smaller numbers of items, I felt that it didn't make much
+          sense to implement user-created lists and filtering within lists given
+          the small number of items.
+        </p>
+        <img alt="Lofi mockups" src="/my-app/public/lofi.png" />
+        <p>
+          Starting with lofi mockups, I sketched some different screens for how
+          the user journey might look as they navigate through the site. Taking
+          careful consideration with the interfacing of different menus, I also
+          played around with page layout and how it might be affected by the
+          opening and closing of different compartments on the page.
+        </p>
+        <img alt="Hifi mockups" src="/my-app/public/hifi.png" />
+        <p>
+          After some revision, I took the lofi mockups into a higher fidelity,
+          adding color and font to determine the visual style of the pages. The
+          designs changed throughout the development process as I discovered
+          holes in my user flow and changed the designs to match potential user
+          actions, but the core of the visual identity and experience stayed
+          relatively consistent.
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h1><sup>03</sup> Functionality</h1>
+
+      <div class="content">
+        <p>
+          My final website is an interface detailing various museums in New York
+          that I felt were relevant for cultural (art) education and interesting
+          places to visit while in the area. The two buttons in the top left
+          corner allow for viewing two different aggregators, one for a master
+          list (favorites), and another for a more specific list (save for
+          later).
+        </p>
+        <img alt="Favorites menu" src="/my-app/public/menu 1.png" />
+        <p>
+          Within these lists, users have the ability to switch between grid and
+          list views of the data given the limited real estate on the screen.
+          Using a more typical convention, menus can be closed by both clicking
+          on the button that opened them, and also by clicking the "Close"
+          button in the bottom of the menu. The three menus employ similar
+          design principles so they can be grouped visually and experienced
+          similarly in terms of the visual language, actions, and motion
+          implemented.
+        </p>
+        <img alt="Favorites menu" src="/my-app/public/menu 2.png" />
+        <p>
+          Within each card displayed on the page, users have the ability to view
+          information and visit links to the museum sites upon hovering, and
+          they are also able to add and remove elements from both lists using
+          the corresponding buttons on the cards. A filter menu, opened via the
+          icon in the bottom left, allows for users to simultaneously sort by
+          museum ticket price and filter based on area and genre. The number of
+          results, like the number of favorited or saved items, is displayed in
+          the filter menu for consistency and to show when there may be no
+          results returned. All of the menus have the ability to clear filters
+          or aggregated items.
+        </p>
+        <img alt="Favorites menu" src="/my-app/public/filter.png" />
+      </div>
+    </div>
+
+    <div class="section">
+      <h1><sup>04</sup> Conclusions</h1>
+      <div class="content">
+        <p>
+          Overall, even though it was a difficult process to navigate through
+          the different hooks while keeping track of all the moving parts of my
+          application, I thought it was an informative way of translating market
+          research into stronger products. Additionally, finding the most
+          visually appealing way of displaying data while creating a fluid and
+          satisfying experience is an ongoing challenge, but being able to
+          create a usable prototype was a fulfilling way to learn how
+          translating designs into code could be applied to real-life projects.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

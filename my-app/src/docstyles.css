@@ -1,0 +1,92 @@
+* {
+  font-family: "barlow", sans-serif;
+  font-weight: bold;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  pointer-events: all;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  font-weight: 400;
+}
+
+body {
+  margin: 1em;
+  row-gap: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  display: flex;
+  border-top: 1px solid black;
+  padding-top: 0.5em;
+}
+
+.section h1 {
+  width: calc(35% - 1em);
+  margin-right: 1em;
+}
+
+.section div {
+  display: flex;
+
+  width: 65%;
+  flex-direction: column;
+}
+
+h0 {
+  font-size: 5em;
+  font-weight: 700;
+  display: block;
+}
+
+nav a {
+  margin-right: 1em;
+}
+
+a {
+  color: darkslategray;
+  text-decoration: none;
+}
+
+a::after {
+  content: " ↗ ";
+  margin-left: 0.25em;
+  transform: rotate(90deg);
+  display: inline-block;
+  transition: 0.25s ease;
+}
+
+a:hover::after {
+  transform: rotate(0);
+  transition: 0.25s ease;
+}
+
+h2 {
+  margin-bottom: 0.5em;
+}
+
+.content div {
+  width: 100%;
+}
+
+.content {
+  row-gap: 1.5em;
+}
+
+.content .three-up {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content .three-up div {
+  width: calc((100% - 4em) / 3);
+}
+
+b,
+b sub {
+  font-weight: 600;
+}
