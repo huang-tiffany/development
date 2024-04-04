@@ -30,6 +30,10 @@ body {
   margin-right: 1em;
 }
 
+.section:last-of-type {
+  margin-bottom: 1em;
+}
+
 .section div {
   display: flex;
 
